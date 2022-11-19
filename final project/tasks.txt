@@ -1,0 +1,14 @@
+
+
+include addition 
+deletion
+modification of inventory
+make a GUI for the program
+
+11/28/2022 - In person lecture
+
+11/30/2022 - In person lecture (if needed)
+
+12/5/2022 - In person lecture (last lecture for the semester)
+
+12/13/2022 - Final project due date
