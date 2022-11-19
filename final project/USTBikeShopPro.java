@@ -77,9 +77,17 @@ public class USTBikeShopPro
 		{
 			// Display user options
 			System.out.println("I am here: run " + count);
-			System.out.println("Enter action number \n 1 - display Basic bike Stock\n 2 - display Mountain bike Stock");
+			System.out.println(" display options: ");
+			System.out.println("Enter action number: \n 1 - display Basic bike Stock\n 2 - display Mountain bike Stock");
 			System.out.println(" 3 - display Road bike Stock\n 4 - display E bike Stock");
-			System.out.println(" 5 - display Road E bike Stock\n 6 - Exit\n");
+			System.out.println(" 5 - display Road E bike Stock");
+		// changes: add bikes to inventory:
+			System.out.println("\n6 - add a basic bike");
+			System.out.println("7 - add a mountain bike");
+			System.out.println("8 - add a road bike");
+			System.out.println("9 - add a E-bike");
+			System.out.println("10 - add a road E-bike");
+			System.out.println("11 - exit");
 			
 			// Wait for user choice
 			choice = myKBR.getKeyboardInt();
@@ -114,9 +122,8 @@ public class USTBikeShopPro
 			
 	} // End PSVM
 	
-	// Methods that are called from within the main method
-	// are to be placed here
-	
+
+// methods that display bike info (will need graphics)-----------------------------------------------------------------------------
 	// Note: I have to send the enitre copy of the array to this method: pass by value in Java
 	public static void displayBasicBikeStock(int maxSize, BasicBike[] arr, boolean verbose )
 	{
@@ -171,5 +178,7 @@ public class USTBikeShopPro
 		}
 		
 	}
+	// END OF methods that display bike info (will need graphics)-----------------------------------------------------------------------------
+
 
 } // End public class USTBikeShopPro
