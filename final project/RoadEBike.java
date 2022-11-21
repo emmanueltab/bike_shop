@@ -10,10 +10,6 @@
 // Post lecture comment: 
 
 
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.lang.*;
 
 // Inherited/sub/child class from the Base class
 // Base/super/parent/root class: RoadBike

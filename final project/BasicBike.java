@@ -3,10 +3,7 @@
 // 6/9 students in attendance, Instrutor: Dr. Charles Thangaraj
 // Post lecture comment: 
 
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.lang.*;
+
 
 
 // Define the properties and features of the basic bike type 
@@ -38,8 +35,7 @@ class BasicBike
 	public String safetyFeatures; // List of safety features
 	public int currSpeed; //A variable to hold the current speed (when testing) 
 	
-	// Private member variable - NOT INHERITABLE
-	private int justAnExample;
+
 	
 	// Protected member variable - Selectively inheritable
 	protected int justAnOtherExample;

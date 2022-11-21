@@ -8,10 +8,7 @@
 // 7/9 students in attendance, Instrutor: Dr. Charles Thangaraj
 // Post lecture comment: 
 
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.lang.*;
+
 
 // Here we are attempting to create objects for the classes that we have defined
 // Base class: BasicBike

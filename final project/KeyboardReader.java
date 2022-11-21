@@ -1,12 +1,13 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 // Lecture #08 - Object Oriented Programming 09/19/2022
 // Riddle flash card game 
 // 9/9 students in attendance, Instrutor: Dr. Charles Thangaraj
 
 // Standard imports
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.lang.*;
+
 
 // Primary class 
 // This class is for defining some methods for handeling textual user interface 
