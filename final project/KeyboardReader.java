@@ -66,5 +66,7 @@ public class KeyboardReader
 	{
 		return Double.parseDouble(sanityCheck());
 	}
+
+
 	
 } // End class KeyboardReader

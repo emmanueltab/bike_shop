@@ -15,26 +15,26 @@ import java.util.*;
 
 public class USTBikeShopPro
 {
-	public static KeyboardReader myKBR = new KeyboardReader();
-	public static final int MAX_INVENTORY_SIZE = 500;
+	static KeyboardReader myKBR = new KeyboardReader();
+	static final int MAX_INVENTORY_SIZE = 500;
 		
 	// Max limit for bikes of a certain type
-	public static final int MAX_INVENTORY_SIZE_PER_TYPE = 100;
+	static final int MAX_INVENTORY_SIZE_PER_TYPE = 100;
 	
 	// This is a settings variable for descriptive messages
-	public static boolean verboseMode = false;
+	static boolean verboseMode = false;
 
-	public static ArrayList <BasicBike> basicBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList <BasicBike> basicBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 	//public static BasicBike[] basicBikeArray = new BasicBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
 	
-	public static ArrayList <MountainBike> mountainBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList <MountainBike> mountainBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 	//public static MountainBike[] mountainBikeArray = new MountainBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	public static ArrayList<RoadBike> roadBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList<RoadBike> roadBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 	//public static RoadBike[] roadBikeArray = new RoadBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	public static ArrayList<EBike> eBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList<EBike> eBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 
 	//public static EBike[] eBikeArray = new EBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	public static ArrayList<RoadEBike> roadEBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList<RoadEBike> roadEBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 
 
 	public static void main(String[] args)
@@ -56,9 +56,7 @@ public class USTBikeShopPro
 		*/
 		
 		// This is for the user interface (text based) 
-		int count = 0;
-		String choice;
-		boolean exitnow = false;
+		int count = 0; String choice; boolean exitnow = false;
 		// Use a do-while loop to remain in the program until user explicitly exits the program
 		while(exitnow != true)
 		{
@@ -82,17 +80,17 @@ public class USTBikeShopPro
 			// Call the methods here according to user choice
 			switch (choice)
 			{
-				case ("1"): displayBasicBikeStock(MAX_INVENTORY_SIZE_PER_TYPE, basicBikeArray, verboseMode);
+				case ("1"): displayBikes("basic");
 							break;
-				case ("2"): displayMountainBikeStock(MAX_INVENTORY_SIZE_PER_TYPE, mountainBikeArray, verboseMode);
+				case ("2"): displayBikes("mountain");
 							break;
-				case ("3"): displayRoadBikeStock(MAX_INVENTORY_SIZE_PER_TYPE, roadBikeArray, verboseMode);
+				case ("3"): displayBikes("road");
 							break;
-				case ("4"): displayEBikeStock(MAX_INVENTORY_SIZE_PER_TYPE, eBikeArray, verboseMode);
+				case ("4"): displayBikes("ebike");
 							break;
-				case ("5"): displayRoadEBikeStock(MAX_INVENTORY_SIZE_PER_TYPE, roadEBikeArray, verboseMode);
+				case ("5"): displayBikes("roadEbike");
 							break;
-				case("6"):addBasicBike();
+				case("6"):bikeAdder("basic");
 							break;
 				case ("11"): exitnow = true;
 							break;
@@ -101,7 +99,6 @@ public class USTBikeShopPro
 							break;
 				
 			}
-			
 			
 			count++;
 			
@@ -113,18 +110,16 @@ public class USTBikeShopPro
 	
 // methods that will add, remove, and modify bikes(will need graphics)-------------------------------------------------------------
 
-	public static void addBasicBike()
+	public static void bikeAdder(String type)
 	{
-		int speed;
-		int gears;
-		String color;
-		String safeFeatures;
-		System.out.println("enter the specs for this basic bike: ");
+		int speed; int gears; String color; String safeFeatures;
+
+		System.out.println("enter the basic specs for your bike: ");
 		while(true)
 		{
-				try {
-					System.out.println("max speed: ");
-					speed = myKBR.getKeyboardInt();
+				try 
+				{ // for specs that are ints
+					System.out.println("max speed: "); speed = myKBR.getKeyboardInt(); 
 	
 					System.out.println("number of gears: ");
 					gears = myKBR.getKeyboardInt();
@@ -133,6 +128,7 @@ public class USTBikeShopPro
 					System.out.println("only integers.");
 					continue;
 				}
+
 				System.out.println("color: ");
 				color = myKBR.getKeyboardInput();
 
@@ -140,12 +136,112 @@ public class USTBikeShopPro
 				safeFeatures = myKBR.getKeyboardInput();
 				break;
 		}
-		BasicBike e = new BasicBike(speed, gears, color, safeFeatures); 
-		basicBikeArray.add(e);
-		System.out.println("bike was added to the inventory!");
 
+		if(type == "basic")
+		{
+			BasicBike e = new BasicBike(speed, gears, color, safeFeatures); 
+			basicBikeArray.add(e);
+
+		}
+		else if(type == "mountain")
+		{
+			while(true)
+			{
+				try 
+				{
+					System.out.println("enter seat height as integer: ");
+					int seatheight = myKBR.getKeyboardInt();
+
+					System.out.println("enter true or false for full suspension: ");
+					boolean fullSuspension = Boolean.parseBoolean(myKBR.getKeyboardInput());
+
+					System.out.println("enter true or false for flatprooftyres: ");
+					boolean flatprooftyres = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					break;
+
+				} catch (Exception e) 
+				{
+					System.out.println("enter proper data types");
+					continue;
+				}
+	
+			}
+		}
+		else if(type == "road")
+		{
+			while(true)
+			{
+				try 
+				{
+					System.out.println("enter true or false for flathandle bar: ");
+					boolean flathandlebar = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					break;
+
+				} catch (Exception e) 
+				{
+					System.out.println("enter only true or false");
+					continue;
+				}
+			}
+		}
+		else if(type == "Ebike")
+		{
+			System.out.println("enter battery type: ");
+			String battertype = myKBR.getKeyboardInput();
+
+			while(true)
+			{
+				try 
+				{
+					System.out.println(" enter range miles as int: ");
+					int rangemiles = myKBR.getKeyboardInt();
+
+					System.out.println("enter battery size as int: ");
+					int battersize = myKBR.getKeyboardInt();
+
+					System.out.println("enter battery voltage as int: ");
+					int voltage = myKBR.getKeyboardInt();
+
+					System.out.println("enter motor power as double: ");
+					double motorpower = myKBR.getKeyboardDouble();
+				} catch (Exception e) 
+				{
+					System.out.println("enter proper data type.");
+					continue;
+				}
+			}
+		}
+
+		System.out.println("bike was added to the inventory!");
+															
 
 	}
+
+
+	public static void displayBikes(String bikeType)
+	{
+		int i =0;
+		switch(bikeType)
+		{
+			case("basic"):
+				for(BasicBike bike: basicBikeArray){System.out.println("Basic Bike slot #"+i+": "+bike.getInfo());i++;}
+		
+			case("mountain"):
+				for(MountainBike bike: mountainBikeArray){System.out.println("Mountain Bike slot #"+i+": "+bike.getInfo()); i++;}
+
+			case("road"):
+				for(RoadBike bike: roadBikeArray){System.out.println("Road Bike slot #"+i+": "+bike.getInfo()); i++;}
+
+			case("ebike"):
+				for(EBike bike: eBikeArray){System.out.println("Ebike slot #"+i+": "+bike.getInfo()); i++;}
+
+			case("roadEbike"):
+				for(RoadEBike bike: roadEBikeArray){System.out.println("Road Ebike slot #"+i+": "+bike.getInfo()); i++;}
+
+
+		}
+	}
+
 	
 
 
@@ -153,80 +249,6 @@ public class USTBikeShopPro
 
 // methods that display bike info (will need graphics)-----------------------------------------------------------------------------
 	// Note: I have to send the enitre copy of the array to this method: pass by value in Java
-
-
-	public static void displayBasicBikeStock(int maxSize, ArrayList<BasicBike> arr, boolean verbose )
-	{
-		int i = 0;
-
-		// List contents of basic bike array
-		for(BasicBike bike: arr)
-		{
-
-			System.out.println("Basic Bike slot #"+i+": "+bike.getInfo());
-			i ++;
-		}
-
-		
-	}
-	
-	
-	public static void displayMountainBikeStock(int maxSize, ArrayList<MountainBike> arr, boolean verbose )
-	{
-		// List contents of basic bike array
-
-		for(int i = 0; i < maxSize; i++)
-		{
-			if(arr.get(i) == null){
-				break;
-			}
-			System.out.println("Mountain Bike slot #"+i+": "+arr.get(i).getInfo());		
-		}
-		
-	}
-	
-	
-	public static void displayRoadBikeStock(int maxSize, ArrayList<RoadBike> arr, boolean verbose )
-	{
-		// List contents of basic bike array
-		for(int i = 0; i < maxSize; i++)
-		{
-			if(arr.get(i) == null){
-				break;
-			}
-			System.out.println("Road Bike slot #"+i+": "+arr.get(i).getInfo());		
-		}
-		
-	}
-	
-	
-	public static void displayEBikeStock(int maxSize, ArrayList<EBike>arr, boolean verbose )
-	{
-		// List contents of basic bike array
-		for(int i = 0; i < maxSize; i++)
-		{
-			if(arr.get(i) == null){
-				break;
-			}
-			System.out.println("E Bike slot #"+i+": "+arr.get(i).getInfo());		
-		}
-		
-	}
-	
-	
-	public static void displayRoadEBikeStock(int maxSize, ArrayList<RoadEBike> arr, boolean verbose )
-	{
-		// List contents of basic bike array
-		for(int i = 0; i < maxSize; i++)
-		{
-			if(arr.get(i) == null){
-				break;
-			}
-			System.out.println("Road E Bike slot #"+i+": "+arr.get(i).getInfo());		
-		}
-		
-	}
-	// END OF methods that display bike info (will need graphics)-----------------------------------------------------------------------------
 
 
 } // End public class USTBikeShopPro
