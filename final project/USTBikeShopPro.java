@@ -267,12 +267,7 @@ public class USTBikeShopPro
 
 	}
 
-
-
-
-
-
-
+	public static void removeBike(){}
 
 
 	public static void displayBikes(String bikeType)
