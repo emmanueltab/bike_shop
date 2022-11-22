@@ -267,7 +267,55 @@ public class USTBikeShopPro
 
 	}
 
-	public static void removeBike(){}
+	public static void removeBike(String type)
+	{
+
+		int bike_position;
+		System.out.println("which bike do you want to remove? (enter integer for its position):"); bike_position = myKBR.getKeyboardInt();
+
+
+		// each if blcck will call its respective display method. and put it on the GUI.
+		if(type == "basic")
+		{
+			try {
+				basicBikeArray.remove(bike_position); 
+			} catch (Exception e) {
+				System.out.println("no bike in that position");
+			}
+		}
+		else if(type == "mountain")
+		{
+			try {
+				mountainBikeArray.remove(bike_position);
+			} catch (Exception e) {
+				System.out.println("no bike in that position");
+			}
+		}
+		else if(type == "road")
+		{
+			try {
+				roadBikeArray.remove(bike_position);
+			} catch (Exception e) {
+				System.out.println("no bike in that position");
+			}
+		}
+		else if(type =="ebike")
+		{
+			try {
+				eBikeArray.remove(bike_position);
+			} catch (Exception e) {
+				System.out.println("no bike in that position");
+			}
+		}
+		else if(type == "roadEbike")
+		{
+			try {
+				roadEBikeArray.remove(bike_position);
+			} catch (Exception e) {
+				System.out.println("no bike in that position");
+			}
+		}
+	}
 
 
 	public static void displayBikes(String bikeType)
@@ -293,6 +341,10 @@ public class USTBikeShopPro
 
 		}
 	}
+
+
+
+
 
 	
 
