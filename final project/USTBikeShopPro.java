@@ -57,6 +57,7 @@ public class USTBikeShopPro
 		
 		// This is for the user interface (text based) 
 		int count = 0; String choice; boolean exitnow = false;
+		String options[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
 		// Use a do-while loop to remain in the program until user explicitly exits the program
 		while(exitnow != true)
 		{
@@ -75,7 +76,17 @@ public class USTBikeShopPro
 			System.out.println(" 11 - exit");
 			
 			// Wait for user choice
-			choice = myKBR.getKeyboardInput();
+			while(true)
+			{
+				choice = myKBR.getKeyboardInput();
+				if(Arrays.stream(options).anyMatch(choice::equals))
+				{
+					break;
+				}else{continue;}
+
+			}
+
+
 			
 			// Call the methods here according to user choice
 			switch (choice)
@@ -90,8 +101,21 @@ public class USTBikeShopPro
 							break;
 				case ("5"): displayBikes("roadEbike");
 							break;
-				case("6"):bikeAdder("basic");
+				case("6"): if(basicBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("basic");}
+							else {System.out.println("basic bike array is full.");}
 							break;
+				case("7"): if(mountainBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("mountain");}
+							else{System.out.println("mountainbike array is full.");}
+							break;
+				case("8"): if(roadBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("road");}
+							else{System.out.println("roadbike array is full");}
+							break;
+				case("9"): if(eBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("ebike");}
+							else{System.out.println("ebike array is full");}
+							break;
+				case("10"): if(roadEBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("roadEbike");}
+							 else{System.out.println("roadEbike array is full");}
+							 break;
 				case ("11"): exitnow = true;
 							break;
 				
@@ -110,10 +134,10 @@ public class USTBikeShopPro
 	
 // methods that will add, remove, and modify bikes(will need graphics)-------------------------------------------------------------
 
-	public static void bikeAdder(String type)
+	public static void bikeAdder(String type) //type will be basic or road or ebike or roadEbike or mountain
 	{
 	// specs for basic bike. will apply for all the other bikes:------------------------------------------------------------------
-		int speed; int gears; String color; String safeFeatures;
+		int speed, gears; String color, safeFeatures;
 
 		System.out.println("enter the basic specs for your bike: ");
 		while(true)
@@ -121,16 +145,11 @@ public class USTBikeShopPro
 				try 
 				{ // for specs that are ints
 					System.out.println("max speed: "); speed = myKBR.getKeyboardInt(); 
-	
 					System.out.println("number of gears: "); gears = myKBR.getKeyboardInt();
-					
-				} catch (Exception e) {
-					System.out.println("only integers.");
-					continue;
-				}
+
+				} catch (Exception e) {System.out.println("only integers.");continue;}
 
 				System.out.println("color: "); color = myKBR.getKeyboardInput();			
-
 				System.out.println("safety features: "); safeFeatures = myKBR.getKeyboardInput();
 				break;
 		}
@@ -141,102 +160,119 @@ public class USTBikeShopPro
 		{
 			BasicBike e = new BasicBike(speed, gears, color, safeFeatures); 
 			basicBikeArray.add(e);
-
 		}
-
-		else if(type == "mountain" || type == "ebike")
+		else if(type == "road")
 		{
+			boolean flathandlebar;
+
 			while(true)
 			{
-				int seatheight; boolean fullSuspension; boolean flatprooftyres;
+				try
+				{
+					System.out.println("enter true or false for flathandle bar: "); flathandlebar = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					break;
+	
+				}catch(Exception e){System.out.println("enter only true or false");continue;}
+			}
+	
+			RoadBike r = new RoadBike(speed, gears, color, safeFeatures, flathandlebar);
+			roadBikeArray.add(r);
+		}
+// ignore above. its good. work on below.--------------------------------------
+
+		else if(type == "ebike" || type == "roadEbike")
+		{
+			String battertype;
+			int rangemiles, batterysize, voltage;
+			double motorpower;
+			
+			System.out.println("enter battery type: "); battertype = myKBR.getKeyboardInput();
+
+			while(true) // for atributes that apply to ebike and roadEbike:
+			{
 				try 
 				{
-					System.out.println("enter seat height as integer: "); seatheight = myKBR.getKeyboardInt();
+					System.out.println("enter range miles as int: "); rangemiles = myKBR.getKeyboardInt();
 
-					System.out.println("enter true or false for full suspension: "); fullSuspension = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					System.out.println("enter battery size as int: "); batterysize = myKBR.getKeyboardInt();
 
-					System.out.println("enter true or false for flatprooftyres: "); flatprooftyres = Boolean.parseBoolean(myKBR.getKeyboardInput());
-		
-				} catch (Exception e) 
-				{
-					System.out.println("enter proper data types");
-					continue;
-				}
-				if(type == "mountain")
-				{
-					MountainBike m = new MountainBike(speed, fullSuspension, flatprooftyres, gears, seatheight, color, safeFeatures);
-					mountainBikeArray.add(m);
+					System.out.println("enter battery voltage as int: "); voltage = myKBR.getKeyboardInt();
+
+					System.out.println("enter motor power as double: ");	motorpower = myKBR.getKeyboardDouble();
 					break;
+	
+				} catch (Exception e){System.out.println("enter proper data type.");continue;}
+			}	
+
+				if(type == "roadEbike"){
+					System.out.println("enter true or false for flathandle bar: "); boolean flathandlebar = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					System.out.println("enter true or false for hybridcomfort: "); boolean hybridcomfortbike = Boolean.parseBoolean(myKBR.getKeyboardInput());
+
+					RoadEBike reb = new RoadEBike(hybridcomfortbike, speed, gears, color, safeFeatures, flathandlebar);
+					roadEBikeArray.add(reb);
+
 				}
 
-
-				if(type == "ebike" || type == "roadEbike")
+				else if(type == "ebike")
 				{
-					String battertype;
-					int rangemiles;
-					int battersize;
-					int voltage;
-					double motorpower;
-					System.out.println("enter battery type: "); battertype = myKBR.getKeyboardInput();
-
+					int seatheight; boolean fullSuspension; boolean flatprooftyres;
 
 					while(true)
 					{
 						try 
 						{
-							System.out.println("enter range miles as int: "); rangemiles = myKBR.getKeyboardInt();
+							System.out.println("enter seat height as integer: "); seatheight = myKBR.getKeyboardInt();
 		
-							System.out.println("enter battery size as int: "); battersize = myKBR.getKeyboardInt();
+							System.out.println("enter true or false for full suspension: "); fullSuspension = Boolean.parseBoolean(myKBR.getKeyboardInput());
 		
-							System.out.println("enter battery voltage as int: "); voltage = myKBR.getKeyboardInt();
-		
-							System.out.println("enter motor power as double: ");	motorpower = myKBR.getKeyboardDouble();
-	
-		
-						} catch (Exception e) 
-						{
-							System.out.println("enter proper data type.");
-							continue;
-						}
-						if(type == "roadEbike"){
-							System.out.println("enter true or false for flathandle bar: "); boolean flathandlebar = Boolean.parseBoolean(myKBR.getKeyboardInput());
-							RoadEBike reb = new RoadEBike(flathandlebar, battersize, voltage, color, battertype, flathandlebar);
-							roadEBikeArray.add(reb);
+							System.out.println("enter true or false for flatprooftyres: "); flatprooftyres = Boolean.parseBoolean(myKBR.getKeyboardInput());
 							break;
 
-						}
-						if(type == "ebike"){
-
-						}
-						break;
+				
+						} catch (Exception e) {System.out.println("enter proper data types");continue;}
+						
+			
 					}
+					EBike eb = new EBike(rangemiles, battertype, batterysize, voltage, motorpower, seatheight, fullSuspension, flatprooftyres, speed, gears, color, safeFeatures);
+					eBikeArray.add(eb);
 				}
-				break;
-	
-			}
+		
+			
 		}
-		else if(type == "road")
+
+		else if(type == "mountain")
 		{
+			int seatheight; boolean fullSuspension, flatprooftyres;
+
 			while(true)
 			{
 				try 
 				{
-					System.out.println("enter true or false for flathandle bar: "); boolean flathandlebar = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					System.out.println("enter seat height as integer: "); seatheight = myKBR.getKeyboardInt();
+					System.out.println("enter true or false for full suspension: "); fullSuspension = Boolean.parseBoolean(myKBR.getKeyboardInput());
+					System.out.println("enter true or false for flatprooftyres: "); flatprooftyres = Boolean.parseBoolean(myKBR.getKeyboardInput());
 					break;
-
-				} catch (Exception e) 
-				{
-					System.out.println("enter only true or false");
-					continue;
-				}
+		
+				} catch (Exception e) {System.out.println("enter proper data types");continue;}
+	
 			}
+			MountainBike m = new MountainBike(seatheight, fullSuspension, flatprooftyres, speed, gears, color, safeFeatures);
+			mountainBikeArray.add(m);
 		}
+
 
 
 		System.out.println("bike was added to the inventory!");
 															
 
 	}
+
+
+
+
+
+
+
 
 
 	public static void displayBikes(String bikeType)

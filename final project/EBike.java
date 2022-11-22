@@ -21,7 +21,8 @@ class EBike extends MountainBike
 	
 	
 	// Constructors 
-	EBike(int RM, String BTy, int BSz, int BVt, double MP, int SH, boolean FS, boolean FPT, int S, int G, String C, String SF )
+	EBike(int RM, String BTy, int BSz, int BVt, 
+	double MP, int SH, boolean FS, boolean FPT, int S, int G, String C, String SF )
 	{
 		//Call the super i.e. base class' constructor
 		super(SH, FS, FPT, S, G, C, SF);
