@@ -10,120 +10,173 @@
 // Post lecture comment: 
 
 import java.util.*;
+import java.awt.Color;
+import java.awt.event.*;					
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
 
 
-
-public class USTBikeShopPro
+public class USTBikeShopPro extends JFrame implements ActionListener
 {
-	static KeyboardReader myKBR = new KeyboardReader();
-	static final int MAX_INVENTORY_SIZE = 500;
+
+	// Define a frame to hold the GUI elements
+	static JTextField tf;
 		
 	// Max limit for bikes of a certain type
+	static KeyboardReader myKBR = new KeyboardReader();
+
 	static final int MAX_INVENTORY_SIZE_PER_TYPE = 100;
-	
+	static final int MAX_INVENTORY_SIZE = 500;
 	// This is a settings variable for descriptive messages
 	static boolean verboseMode = false;
 
+// bike arrays:
 	static ArrayList <BasicBike> basicBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
-	//public static BasicBike[] basicBikeArray = new BasicBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	
-	static ArrayList <MountainBike> mountainBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
-	//public static MountainBike[] mountainBikeArray = new MountainBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	static ArrayList<RoadBike> roadBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
-	//public static RoadBike[] roadBikeArray = new RoadBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
-	static ArrayList<EBike> eBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 
-	//public static EBike[] eBikeArray = new EBike[MAX_INVENTORY_SIZE_PER_TYPE]; // Creating
+	static ArrayList <MountainBike> mountainBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList<RoadBike> roadBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+	static ArrayList<EBike> eBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
 	static ArrayList<RoadEBike> roadEBikeArray = new ArrayList<>(MAX_INVENTORY_SIZE_PER_TYPE);
+// end of bike arrays-------------------------------------------
 
 
 	public static void main(String[] args)
 	{
+	// basic frame settings:
+		final int WIDTH = 1780, HEIGHT = 1000;
+		JFrame frame = new JFrame("Emmanuel's bike shop");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setSize(WIDTH, HEIGHT);
+        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+	// ---------------------END OF BASIC FRAME SETTINGS-------------
 
-		/* 
-		for(int i = 0; i < MAX_INVENTORY_SIZE_PER_TYPE; i++)
-		{
-			basicBikeArray[i] = new BasicBike();
-			
-			mountainBikeArray[i] = new MountainBike(0, false, false, 0, 0, "", "");
-			
-			roadBikeArray[i] = new RoadBike(0, 0, "", "", false);
-			
-			eBikeArray[i] = new EBike(0, "", 0, 0, 0.0, 0, false, false, 0, 0, "", "");
-			
-			roadEBikeArray[i] = new RoadEBike(false, 0, 0, "", "", false);
-		}
-		*/
-		
-		// This is for the user interface (text based) 
-		int count = 0; String choice; boolean exitnow = false;
-		String options[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-		// Use a do-while loop to remain in the program until user explicitly exits the program
+	// buttons and panel for display bikes:
+		JButton d1 = new JButton("display Basic bikes");
+		JButton d2 = new JButton("display Mountain bikes");
+		JButton d3 = new JButton("display Road bikes");
+		JButton d4 = new JButton("display E bikes");
+		JButton d5 = new JButton("display Road E bikes");
+		JPanel display_panel = new JPanel();
+	
+		display_panel.add(d1);
+		display_panel.add(d2);
+		display_panel.add(d3);
+		display_panel.add(d4);
+		display_panel.add(d5);
+
+	// buttons and panel for add bikes:
+		JButton a1 = new JButton("add a basic bike");
+		JButton a2 = new JButton("add a mountain bike");
+		JButton a3 = new JButton("add a road bike");
+		JButton a4 = new JButton("add a E-bike");
+		JButton a5 = new JButton("add a Road E-bike");
+
+		JPanel add_panel = new JPanel();
+		add_panel.add(a1);
+		add_panel.add(a2);
+		add_panel.add(a3);
+		add_panel.add(a4);
+		add_panel.add(a5);
+	// buttons and panel for remove bikes:
+		JButton r1 = new JButton("remove a basic bike");
+		JButton r2 = new JButton("remove a mountain bike");
+		JButton r3 = new JButton("remove a road bike");
+		JButton r4 = new JButton("remove a E bike");
+		JButton r5 = new JButton("remove a Road E bike");
+
+		JPanel remove_panel = new JPanel();
+		remove_panel.add(r1);
+		remove_panel.add(r2);
+		remove_panel.add(r3);
+		remove_panel.add(r4);
+		remove_panel.add(r5);
+
+	// buttons and panel for modify bikes:
+		JButton m1 = new JButton("modify a basic bike");
+		JButton m2 = new JButton("modify a mountain bike");
+		JButton m3 = new JButton("modify a road bike");
+		JButton m4 = new JButton("modify a E bike");
+		JButton m5 = new JButton("modify a Road E bike");
+		JPanel modify_panel = new JPanel();
+		modify_panel.add(m1);
+		modify_panel.add(m2);
+		modify_panel.add(m3);
+		modify_panel.add(m4);
+		modify_panel.add(m5);
+
+
+		JPanel mainPanel = new JPanel(); // Declare and create a main panel
+		mainPanel.setLayout(new GridLayout(1, 1));
+		mainPanel.add(display_panel);
+		mainPanel.add(add_panel);
+		mainPanel.add(remove_panel);
+		mainPanel.add(modify_panel);
+		frame.add(mainPanel);
+
+		frame.setVisible(true);
+
+		int count = 0; boolean exitnow = false;
+
 		while(exitnow != true)
 		{
-			// Display user options
+		// Display bikes from inventory:
 			System.out.println("number of runs: " + count);
 			System.out.println("display options: ");
-			System.out.println(" 1 - display Basic bike Stock\n 2 - display Mountain bike Stock");
-			System.out.println(" 3 - display Road bike Stock\n 4 - display E bike Stock");
-			System.out.println(" 5 - display Road E bike Stock");
-		// changes: add bikes to inventory:
-			System.out.println("\n 6 - add a basic bike");
-			System.out.println(" 7 - add a mountain bike");
-			System.out.println(" 8 - add a road bike");
-			System.out.println(" 9 - add a E-bike");
-			System.out.println(" 10 - add a road E-bike");
-			System.out.println(" 11 - exit");
+			System.out.println(" d1 - display Basic bike Stock\n d2 - display Mountain bike Stock");
+			System.out.println(" d3 - display Road bike Stock\n d4 - display E bike Stock");
+			System.out.println(" d5 - display Road E bike Stock");
+		// add bikes to inventory:
+			System.out.println("\n a1 - add a basic bike");
+			System.out.println(" a2 - add a mountain bike");
+			System.out.println(" a3 - add a road bike");
+			System.out.println(" a4 - add a E-bike");
+			System.out.println(" a5 - add a road E-bike");
+			System.out.println(" e - exit");
+		// remove bikes frrom inventory:
 			
-			// Wait for user choice
-			while(true)
-			{
-				choice = myKBR.getKeyboardInput();
-				if(Arrays.stream(options).anyMatch(choice::equals))
-				{
-					break;
-				}else{continue;}
-
-			}
-
-
 			
 			// Call the methods here according to user choice
+			String choice = myKBR.getKeyboardInput();
+
 			switch (choice)
 			{
-				case ("1"): displayBikes("basic");
+				case ("d1"): displayBikes("basic");
 							break;
-				case ("2"): displayBikes("mountain");
+				case ("d2"): displayBikes("mountain");
 							break;
-				case ("3"): displayBikes("road");
+				case ("d3"): displayBikes("road");
 							break;
-				case ("4"): displayBikes("ebike");
+				case ("d4"): displayBikes("ebike");
 							break;
-				case ("5"): displayBikes("roadEbike");
+				case ("d5"): displayBikes("roadEbike");
 							break;
-				case("6"): if(basicBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("basic");}
+				case("a1"): if(basicBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("basic");}
 							else {System.out.println("basic bike array is full.");}
 							break;
-				case("7"): if(mountainBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("mountain");}
+				case("a2"): if(mountainBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("mountain");}
 							else{System.out.println("mountainbike array is full.");}
 							break;
-				case("8"): if(roadBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("road");}
+				case("a3"): if(roadBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("road");}
 							else{System.out.println("roadbike array is full");}
 							break;
-				case("9"): if(eBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("ebike");}
+				case("a4"): if(eBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("ebike");}
 							else{System.out.println("ebike array is full");}
 							break;
-				case("10"): if(roadEBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("roadEbike");}
+				case("a5"): if(roadEBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("roadEbike");}
 							 else{System.out.println("roadEbike array is full");}
 							 break;
-				case ("11"): exitnow = true;
+				case ("e"): exitnow = true;
 							break;
 				
 				default: exitnow = true;
 							break;
 				
 			}
-			
 			count++;
 			
 		} 
@@ -340,6 +393,12 @@ public class USTBikeShopPro
 
 
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
