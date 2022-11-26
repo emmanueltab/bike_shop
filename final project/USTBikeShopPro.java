@@ -20,12 +20,9 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class USTBikeShopPro extends JFrame implements ActionListener
+public class USTBikeShopPro extends JFrame
 {
-
-	// Define a frame to hold the GUI elements
-	static JTextField tf;
-		
+	
 	// Max limit for bikes of a certain type
 	static KeyboardReader myKBR = new KeyboardReader();
 
@@ -57,10 +54,20 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 
 	// buttons and panel for display bikes:
 		JButton d1 = new JButton("display Basic bikes");
+		d1.addActionListener(e -> displayBikes("basic"));
+
 		JButton d2 = new JButton("display Mountain bikes");
+		d2.addActionListener(e -> displayBikes("mountain"));
+
 		JButton d3 = new JButton("display Road bikes");
+		d3.addActionListener(e -> displayBikes("road"));
+
 		JButton d4 = new JButton("display E bikes");
+		d4.addActionListener(e -> displayBikes("ebike"));
+
 		JButton d5 = new JButton("display Road E bikes");
+		d5.addActionListener(e -> displayBikes("roadEbike"));
+
 		JPanel display_panel = new JPanel();
 	
 		display_panel.add(d1);
@@ -71,10 +78,20 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 
 	// buttons and panel for add bikes:
 		JButton a1 = new JButton("add a basic bike");
+		a1.addActionListener(e -> bikeAdder("basic"));
+
 		JButton a2 = new JButton("add a mountain bike");
+		a2.addActionListener(e -> bikeAdder("mountain"));
+
 		JButton a3 = new JButton("add a road bike");
+		a3.addActionListener(e -> bikeAdder("road"));
+
 		JButton a4 = new JButton("add a E-bike");
+		a4.addActionListener(e -> bikeAdder("ebike"));
+
 		JButton a5 = new JButton("add a Road E-bike");
+		a5.addActionListener(e -> bikeAdder("roadEbike"));
+
 
 		JPanel add_panel = new JPanel();
 		add_panel.add(a1);
@@ -84,10 +101,20 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 		add_panel.add(a5);
 	// buttons and panel for remove bikes:
 		JButton r1 = new JButton("remove a basic bike");
+		r1.addActionListener(e -> bikeRemover("basic"));
+
 		JButton r2 = new JButton("remove a mountain bike");
+		r2.addActionListener(e -> bikeRemover("mountain"));
+
 		JButton r3 = new JButton("remove a road bike");
+		r1.addActionListener(e -> bikeRemover("road"));
+
 		JButton r4 = new JButton("remove a E bike");
+		r1.addActionListener(e -> bikeRemover("ebike"));
+
 		JButton r5 = new JButton("remove a Road E bike");
+		r1.addActionListener(e -> bikeRemover("roadEbike"));
+
 
 		JPanel remove_panel = new JPanel();
 		remove_panel.add(r1);
@@ -120,69 +147,8 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 
 		frame.setVisible(true);
 
-		int count = 0; boolean exitnow = false;
 
-		while(exitnow != true)
-		{
-		// Display bikes from inventory:
-			System.out.println("number of runs: " + count);
-			System.out.println("display options: ");
-			System.out.println(" d1 - display Basic bike Stock\n d2 - display Mountain bike Stock");
-			System.out.println(" d3 - display Road bike Stock\n d4 - display E bike Stock");
-			System.out.println(" d5 - display Road E bike Stock");
-		// add bikes to inventory:
-			System.out.println("\n a1 - add a basic bike");
-			System.out.println(" a2 - add a mountain bike");
-			System.out.println(" a3 - add a road bike");
-			System.out.println(" a4 - add a E-bike");
-			System.out.println(" a5 - add a road E-bike");
-			System.out.println(" e - exit");
-		// remove bikes frrom inventory:
-			
-			
-			// Call the methods here according to user choice
-			String choice = myKBR.getKeyboardInput();
-
-			switch (choice)
-			{
-				case ("d1"): displayBikes("basic");
-							break;
-				case ("d2"): displayBikes("mountain");
-							break;
-				case ("d3"): displayBikes("road");
-							break;
-				case ("d4"): displayBikes("ebike");
-							break;
-				case ("d5"): displayBikes("roadEbike");
-							break;
-				case("a1"): if(basicBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("basic");}
-							else {System.out.println("basic bike array is full.");}
-							break;
-				case("a2"): if(mountainBikeArray.size()!=MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("mountain");}
-							else{System.out.println("mountainbike array is full.");}
-							break;
-				case("a3"): if(roadBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("road");}
-							else{System.out.println("roadbike array is full");}
-							break;
-				case("a4"): if(eBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("ebike");}
-							else{System.out.println("ebike array is full");}
-							break;
-				case("a5"): if(roadEBikeArray.size() != MAX_INVENTORY_SIZE_PER_TYPE) {bikeAdder("roadEbike");}
-							 else{System.out.println("roadEbike array is full");}
-							 break;
-				case ("e"): exitnow = true;
-							break;
-				
-				default: exitnow = true;
-							break;
-				
-			}
-			count++;
-			
-		} 
 	
-		
-			
 	} // End PSVM
 	
 // methods that will add, remove, and modify bikes(will need graphics)-------------------------------------------------------------
@@ -320,7 +286,7 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 
 	}
 
-	public static void removeBike(String type)
+	public static void bikeRemover(String type)
 	{
 
 		int bike_position;
@@ -394,24 +360,9 @@ public class USTBikeShopPro extends JFrame implements ActionListener
 
 		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
-	
-
-
-
-
 // methods that display bike info (will need graphics)-----------------------------------------------------------------------------
 	// Note: I have to send the enitre copy of the array to this method: pass by value in Java
+
 
 
 } // End public class USTBikeShopPro
