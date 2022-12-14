@@ -6,6 +6,6 @@ run USTBikeShopPro_v2.java that one is the one with the main method.
 
 
 # what to run
-in final-project/src/main/java/project/
+in src/main/java/project/
 
-run USTBikeShopPro_v2
+run USTBikeShopPro_v2.java
